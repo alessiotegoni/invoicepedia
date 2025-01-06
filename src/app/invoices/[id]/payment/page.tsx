@@ -25,10 +25,8 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
 
   if (isNaN(id)) throw new Error("Invalid id");
 
-  const invoice = await getInvoice(id);
+  let invoice = await getInvoice(id);
   if (!invoice) notFound();
-
-  let updatedInvoice = { ...invoice };
 
   if (status === "success" && session_id && invoice.status === "open") {
     const { payment_status } =
@@ -36,7 +34,7 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
 
     if (payment_status === "paid") {
       const paymentStatus = await payInvoice(id);
-      if (paymentStatus === "paid") updatedInvoice.status = "paid";
+      if (paymentStatus === "paid") invoice = { ...invoice, status: "paid" };
     }
   }
 
@@ -56,20 +54,17 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
             <header className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-4">
                 <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">
-                  Invoice #{updatedInvoice.id}
+                  Invoice #{invoice.id}
                 </h1>
-                <StatusBadge
-                  status={updatedInvoice.status}
-                  className="self-start"
-                />
+                <StatusBadge status={invoice.status} className="self-start" />
               </div>
             </header>
 
             <div className="text-2xl font-semibold text-gray-600 dark:text-gray-300">
-              ${(updatedInvoice.value / 100).toFixed(2)}
+              ${(invoice.value / 100).toFixed(2)}
             </div>
             <p className="text-gray-600 dark:text-gray-400">
-              {updatedInvoice.description}
+              {invoice.description}
             </p>
 
             <section>
@@ -82,7 +77,7 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
                     Invoice ID
                   </span>
                   <span className="text-lg text-gray-700 dark:text-gray-300">
-                    {updatedInvoice.id}
+                    {invoice.id}
                   </span>
                 </div>
                 <div className="grid grid-cols-2">
@@ -90,7 +85,7 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
                     Invoice Date
                   </span>
                   <span className="text-lg text-gray-700 dark:text-gray-300">
-                    {new Date(updatedInvoice.createdAt).toLocaleDateString()}
+                    {new Date(invoice.createdAt).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="grid grid-cols-2">
@@ -98,7 +93,7 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
                     Billing Name
                   </span>
                   <span className="text-lg text-gray-700 dark:text-gray-300">
-                    {updatedInvoice.customer.name}
+                    {invoice.customer.name}
                   </span>
                 </div>
               </div>
@@ -108,16 +103,16 @@ export default async function InvoicePayment({ params, searchParams }: Props) {
             <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
               Manage Invoice
             </h2>
-            {updatedInvoice.status === "open" && (
+            {invoice.status === "open" && (
               <form action={createPayment}>
-                <input type="hidden" name="id" value={updatedInvoice.id} />
+                <input type="hidden" name="id" value={invoice.id} />
                 <Button className="bg-blue-500 text-white dark:bg-blue-600">
                   <CreditCard className="w-5 h-auto" />
                   Pay Invoice
                 </Button>
               </form>
             )}
-            {updatedInvoice.status === "paid" && (
+            {invoice.status === "paid" && (
               <Button
                 className="bg-green-600 text-white !opacity-80 dark:bg-green-700"
                 disabled
