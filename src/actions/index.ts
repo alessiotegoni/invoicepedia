@@ -57,7 +57,7 @@ export async function createNewInvoice(formData: FormData) {
     .returning({ id: invoices.id });
 
   after(async () => {
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: "Invoicepedia <info@tega.wuaze.com>",
       to: [email],
       subject: "You have a new invoice",

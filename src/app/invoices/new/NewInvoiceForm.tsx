@@ -50,7 +50,7 @@ export default function NewInvoiceForm({ customers }: Props) {
     if (email)
       setIsOpen(email !== customer?.email && !!filteredCustomers.length);
     else setIsOpen(false);
-  }, [email, customer?.email]);
+  }, [email]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <form action={createNewInvoice} className="space-y-5">
