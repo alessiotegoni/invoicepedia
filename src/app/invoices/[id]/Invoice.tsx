@@ -57,6 +57,7 @@ export default function Invoice({ invoice }: Props) {
       updateInvoiceStatus(formData);
     } catch (err) {
       setCurrentStatus(invoice.status);
+      console.error(err);
     }
   }
 

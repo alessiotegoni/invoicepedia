@@ -63,7 +63,7 @@ export const InvoiceCreatedEmail = ({
           <Hr className="border-t border-gray-200 my-6 mx-8" />
           <Section className="px-8 py-6 bg-gray-50 text-center">
             <Text className="text-gray-600 text-sm">
-              If you have any questions, please don't hesitate to{" "}
+              If you have any questions, please don&apos;t hesitate to{" "}
               <Link
                 href="mailto:support@spacejelly.dev"
                 className="text-blue-600 hover:underline"

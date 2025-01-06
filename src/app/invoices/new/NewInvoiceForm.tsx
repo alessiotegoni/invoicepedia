@@ -50,7 +50,7 @@ export default function NewInvoiceForm({ customers }: Props) {
     if (email)
       setIsOpen(email !== customer?.email && !!filteredCustomers.length);
     else setIsOpen(false);
-  }, [email]);
+  }, [email, customer?.email]);
 
   return (
     <form action={createNewInvoice} className="space-y-5">

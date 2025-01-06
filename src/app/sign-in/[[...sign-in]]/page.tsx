@@ -14,7 +14,7 @@ export default function SignInPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl"
+          className="w-full max-w-md overflow-hidden rounded-3xl shadow-2xl"
         >
           <SignIn.Step name="start" className="space-y-6 p-8">
             <header className="text-center">
@@ -37,7 +37,7 @@ export default function SignInPage() {
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
               </motion.div>
-              <h1 className="mt-4 text-2xl font-bold text-gray-900">
+              <h1 className="mt-4 text-2xl font-bold">
                 Sign in to Invoicipedia
               </h1>
             </header>
@@ -48,25 +48,21 @@ export default function SignInPage() {
                 type="email"
                 required
                 placeholder="Email"
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 "
+                className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-500 "
               />
               <Clerk.FieldError className="mt-2 text-xs text-red-600" />
             </Clerk.Field>
             <SignIn.Action submit asChild>
-              <Button className="w-full py-3 font-semibold text-white focus:outline-none focus:ring-2  focus:ring-offset-2">
+              <Button
+                className="w-full py-3 font-semibold focus:outline-none focus:ring-2
+              focus:ring-offset-2"
+              >
                 Sign In
               </Button>
             </SignIn.Action>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">
-                  Or continue with
-                </span>
-              </div>
-            </div>
+
+            <p className="px-2 text-center my-5">Or continue with</p>
+
             <div className="grid gap-3">
               {/* <SignIn.Passkey asChild>
                 <Button variant="outline" className="w-full">
@@ -180,7 +176,7 @@ function VerificationStep({
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <h1 className="mt-4 text-2xl font-bold text-gray-900">{title}</h1>
+        <h1 className="mt-4 text-2xl font-bold">{title}</h1>
       </header>
       <Clerk.GlobalError className="text-sm text-red-600" />
       <Clerk.Field name={fieldName}>
@@ -210,7 +206,7 @@ function VerificationStep({
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.8 }}
-                          className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-gray-900"
+                          className="absolute inset-0 flex items-center justify-center text-lg font-semibold"
                         >
                           {value[index]}
                         </motion.span>
@@ -226,7 +222,7 @@ function VerificationStep({
             type="text"
             required
             placeholder={placeholder}
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
+            className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
           />
         )}
         <Clerk.FieldError className="mt-2 text-xs text-red-600" />

@@ -8,6 +8,7 @@ import {
 import Container from "./Container";
 import Link from "next/link";
 import { ToggleTheme } from "./ToggleTheme";
+import { Button } from "./ui/button";
 
 export default function Header() {
   return (
@@ -18,12 +19,12 @@ export default function Header() {
             <h1 className="font-bold text-3xl">
               <Link href="/dashboard">Invoicepedia</Link>
             </h1>
-            <span className="text-slate-300 text-2xl">/</span>
             <SignedIn>
+              <span className="text-slate-300 text-2xl">/</span>
               <span className="-ml-2">
                 <OrganizationSwitcher afterCreateOrganizationUrl="/dashboard" />
               </span>
-            </SignedIn> 
+            </SignedIn>
           </div>
           <div className="flex items-center gap-4">
             <ToggleTheme />
@@ -31,7 +32,9 @@ export default function Header() {
               <UserButton />
             </SignedIn>
             <SignedOut>
-              <SignInButton />
+              <Button asChild>
+                <SignInButton />
+              </Button>
             </SignedOut>
           </div>
         </div>
